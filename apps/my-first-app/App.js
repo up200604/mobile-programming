@@ -3,7 +3,8 @@ import {
     Text,
     View,
     TextInput,
-    Button
+    Button,
+    Image
 } from 'react-native';
 import { getWetherByName } from './src/services/wether';
 import { useState } from 'react';
@@ -15,18 +16,20 @@ export default function App() {
     const [city, setCity] = useState("");
     const [wether, setWether] = useState();
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const onPressHanddle = async () => {
-        const resp = await getWetherByName(city);
-        const errorExist = Boolean(resp.error)
-
-        console.log({
-            resp,
-            errorExist
-        })
-
-        setError(errorExist);
-        setWether(resp);
+        setLoading(true)
+        try {
+            const resp = await getWetherByName(city);
+            const errorExist = Boolean(resp.error)
+            setError(errorExist);
+            setWether(resp);
+        } catch (error) {
+            setError(true)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const handdleChangeText = (e) => {
@@ -51,14 +54,28 @@ export default function App() {
                 />
             </View>
             {
-                !error && wether && (
-                    <View>
-                        <Text>Contry: {wether.location.country}</Text>
-                        <Text>Region: {wether.location.region}</Text>
-                        <Text>City: {wether.location.name}</Text>
-                        <Text>Temp: {wether.current.temp_c}</Text>
-                        <Text>Condition: {wether.current.condition.text}</Text>
-                    </View>
+                loading && <Text>Loading!!!!!!</Text>
+            }
+            {
+                !error && !loading && wether && (
+                    <>
+                        <View style={{ marginTop: 20 }}>
+                            <Text>Contry: {wether.location.country}</Text>
+                            <Text>Region: {wether.location.region}</Text>
+                            <Text>City: {wether.location.name}</Text>
+                            <Text>Temp: {wether.current.temp_c}</Text>
+                            <Text>Condition: {wether.current.condition.text}</Text>
+                        </View>
+                        <Image
+                            style={{
+                                width: 64,
+                                height: 64
+                            }}
+                            source={{
+                                uri: 'https:' + wether.current.condition.icon
+                            }}
+                        />
+                    </>
                 )
             }
         </View>
@@ -77,9 +94,7 @@ const styles = StyleSheet.create({
         color: "#8CC7FF"
     },
     input: {
-        borderWidth: 1,
-        height: 40,
         width: 250,
-        marginVertical: 10
+        marginVertical: 10,
     }
 });
