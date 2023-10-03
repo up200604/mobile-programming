@@ -1,20 +1,32 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { Link } from 'react-router-native';
 
 function Home() {
     return (
-        <View style={styles.main}>
-            <Text>Home Page</Text>
+        <View>
+            <View style={styles.main}>
+                <Image source={require('../../assets/pokebola.png')} />
+                <View style={styles.inputs}>
+                    <TextInput style={{ borderWidth: 1 }} placeholder='Search a Pokemon!' />
+                    <Button title='Search' />
+                </View>
+                <View>
+                    <Text>Filters!!!</Text>
+                </View>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     main: {
-        width: 'auto',
-        height: 'auto',
-        backgroundColor: {
-
-        }
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    inputs: {
+        width: 400,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     }
 });
 

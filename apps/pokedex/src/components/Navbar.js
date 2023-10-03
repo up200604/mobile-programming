@@ -4,8 +4,8 @@ import Constants from 'expo-constants';
 
 function Navbar() {
     return (
-        <View>
-            <Text>PokéDex ISC</Text>
+        <View style={styles.navbar}>
+            <Text style={styles.navbarText}>PokéDex ISC</Text>
         </View>
     );
 }
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         fontWeight: 'bold'
     }
-
 });
 
 export default Navbar;
