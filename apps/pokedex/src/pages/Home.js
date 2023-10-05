@@ -33,14 +33,18 @@ function Home() {
                     loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
                 }
                 {
-                    !loading && pokemon && <Image
-                        style={{ height: 250, width: 250 }}
-                        source={
-                            {
-                                uri: pokemon?.sprites?.front_default
-                            }
-                        }
-                    />
+                    !loading && pokemon && (
+                        <Link to={`/information/${pokemon.id}`}>
+                            <Image
+                                style={{ height: 250, width: 250 }}
+                                source={
+                                    {
+                                        uri: pokemon?.sprites?.front_default
+                                    }
+                                }
+                            />
+                        </Link>
+                    )
                 }
                 {
                     (error || !pokemon && !loading) && <Image

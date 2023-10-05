@@ -14,7 +14,7 @@ export default function App() {
             <Navbar />
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/information' element={<Information />} />
+                <Route path='/information/:pokemonid' element={<Information />} />
             </Routes>
         </NativeRouter>
 

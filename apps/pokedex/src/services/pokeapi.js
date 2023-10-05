@@ -11,3 +11,15 @@ export async function getPokemonByName(name) {
 
     return resp.json();
 }
+
+export async function getPokemonById(id) {
+    const URI = new URL(`pokemon/${id}`, BASE_URL);
+
+    const resp = await fetch(URI.href);
+
+    // Si existe un error! en algun punto de la petición
+    if (!resp.ok)
+        return Promise.reject(resp.json());
+
+    return resp.json();
+}
